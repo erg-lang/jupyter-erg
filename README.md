@@ -29,3 +29,9 @@ jupyter notebook
 ```console
 ~/.local/bin/jupyter notebook
 ```
+
+## License
+
+This project is currently appropriating code from [bash_kernel](https://github.com/takluyver/bash_kernel).
+
+See [LICENSE-BSD](./LICENSE-BSD) and [LICENSE-APACHE](./LICENSE-APACHE) for licenses.
