@@ -2,6 +2,8 @@
 
 This project will allow Erg to be used with Jupyter.
 
+![Jupyter-erg](./assets/jupyter_erg.png)
+
 ## Requirements
 
 * Erg 0.4.6 or later
