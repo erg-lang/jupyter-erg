@@ -18,7 +18,7 @@ from .images import (
 
 class IREPLWrapper(replwrap.REPLWrapper):
     """A subclass of REPLWrapper that gives incremental output
-    specifically for bash_kernel.
+    specifically for erg_kernel.
 
     The parameters are the same as for REPLWrapper, except for one
     extra parameter:
@@ -92,14 +92,14 @@ class ErgKernel(Kernel):
             # source code there for comments and context for
             # understanding the code here.
             # bashrc = os.path.join(os.path.dirname(pexpect.__file__), 'bashrc.sh')
-            child = pexpect.spawn("erg", [], echo=False, # pexpect.spawn("erg", ['--rcfile', bashrc], echo=False,
+            child = pexpect.spawn(command="erg", args=["--verbose", "2"], echo=False, # pexpect.spawn("erg", ['--rcfile', bashrc], echo=False,
                                   encoding='utf-8', codec_errors='replace')
             ps1 = ">>>" # replwrap.PEXPECT_PROMPT[:5] + u'\[\]' + replwrap.PEXPECT_PROMPT[5:]
             ps2 = "..." # replwrap.PEXPECT_CONTINUATION_PROMPT[:5] + u'\[\]' + replwrap.PEXPECT_CONTINUATION_PROMPT[5:]
-            prompt_change = u"PS1='{0}' PS2='{1}' PROMPT_COMMAND=''".format(ps1, ps2)
+           #  prompt_change = u"PS1='{0}' PS2='{1}' PROMPT_COMMAND=''".format(ps1, ps2)
 
             # Using IREPLWrapper to get incremental output
-            self.bashwrapper = IREPLWrapper(child, u'\>>>', prompt_change,
+            self.bashwrapper = IREPLWrapper(child, u'\>>>', prompt_change=None,
                                             # extra_init_cmd="export PAGER=cat",
                                             line_output_callback=self.process_output)
         finally:
