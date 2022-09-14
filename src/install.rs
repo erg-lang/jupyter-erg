@@ -21,8 +21,8 @@ use std::io::Write;
 use std::path::Path;
 use std::path::PathBuf;
 
-const LOGO_32X32: &[u8] = include_bytes!("../third_party/erg/erg-logo-32x32.png");
-const LOGO_64X64: &[u8] = include_bytes!("../third_party/erg/erg-logo-64x64.png");
+const LOGO_32X32: &[u8] = include_bytes!("../third_party/erg/erg_logo_32x32.png");
+const LOGO_64X64: &[u8] = include_bytes!("../third_party/erg/erg_logo_64x64.png");
 const LOGO_LICENSE: &[u8] = include_bytes!("../third_party/erg/LICENSE.md");
 const KERNEL_JS: &[u8] = include_bytes!("../client/kernel.js");
 const LINT_JS: &[u8] = include_bytes!("../third_party/CodeMirror/addons/lint/lint.js");

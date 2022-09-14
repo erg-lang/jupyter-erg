@@ -10,7 +10,7 @@ edition = "2021"
 # rust-version = "1.57"
 
 [dependencies]
-erg_compiler = "0.4.1"
+erg = "0.4.1"
 json = "0.12.4"
 anyhow = "1.0.33"
 bytes = "1.2.1"

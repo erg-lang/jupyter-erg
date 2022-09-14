@@ -1,11 +1,11 @@
 use std::fmt;
 use std::io;
 
-use erg_compiler::error::CompileError;
+use erg::error::EvalError;
 
 #[derive(Debug)]
 pub enum Error {
-    CompilationErrors(Vec<CompileError>),
+    CompilationErrors(Vec<EvalError>),
     Message(String),
 }
 
