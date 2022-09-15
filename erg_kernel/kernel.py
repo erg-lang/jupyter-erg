@@ -8,7 +8,7 @@ import os.path
 import re
 import signal
 
-__version__ = '0.8.0'
+__version__ = '0.1.1'
 
 version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
@@ -26,11 +26,10 @@ class IREPLWrapper(replwrap.REPLWrapper):
     :param line_output_callback: a callback method to receive each batch
       of incremental output. It takes one string parameter.
     """
-    def __init__(self, cmd_or_spawn, orig_prompt, prompt_change,
+    def __init__(self, cmd_or_spawn, orig_prompt, continuation_prompt,
                  extra_init_cmd=None, line_output_callback=None):
         self.line_output_callback = line_output_callback
-        replwrap.REPLWrapper.__init__(self, cmd_or_spawn, orig_prompt,
-                                      prompt_change, extra_init_cmd=extra_init_cmd)
+        replwrap.REPLWrapper.__init__(self, cmd_or_spawn, orig_prompt, continuation_prompt, extra_init_cmd=extra_init_cmd)
 
     def _expect_prompt(self, timeout=-1):
         if timeout == None:
@@ -73,7 +72,7 @@ class ErgKernel(Kernel):
 
     language_info = {'name': 'erg',
                      # 'codemirror_mode': 'erg',
-                     'mimetype': 'text/erg',
+                     'mimetype': 'text/x-erg',
                      'file_extension': '.er'}
 
     def __init__(self, **kwargs):
@@ -94,12 +93,9 @@ class ErgKernel(Kernel):
             # bashrc = os.path.join(os.path.dirname(pexpect.__file__), 'bashrc.sh')
             child = pexpect.spawn(command="erg", args=["--quiet-startup"], echo=False, # pexpect.spawn("erg", ['--rcfile', bashrc], echo=False,
                                   encoding='utf-8', codec_errors='replace')
-            ps1 = ">>>" # replwrap.PEXPECT_PROMPT[:5] + u'\[\]' + replwrap.PEXPECT_PROMPT[5:]
-            ps2 = "..." # replwrap.PEXPECT_CONTINUATION_PROMPT[:5] + u'\[\]' + replwrap.PEXPECT_CONTINUATION_PROMPT[5:]
-            #  prompt_change = u"PS1='{0}' PS2='{1}' PROMPT_COMMAND=''".format(ps1, ps2)
 
             # Using IREPLWrapper to get incremental output
-            self.bashwrapper = IREPLWrapper(child, u'>>>', prompt_change=None,
+            self.bashwrapper = IREPLWrapper(child, u'>>>', u'...',
                                             # extra_init_cmd="export PAGER=cat",
                                             line_output_callback=self.process_output)
         finally:
