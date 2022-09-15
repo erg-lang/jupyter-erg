@@ -94,11 +94,11 @@ class ErgKernel(Kernel):
             # source code there for comments and context for
             # understanding the code here.
             # bashrc = os.path.join(os.path.dirname(pexpect.__file__), 'bashrc.sh')
-            child = pexpect.spawn(command="erg", args=["--quiet-startup", "--ps1", "[PEXPECT_PROMPT>", "--ps2", "[PEXPECT_PROMPT+"], echo=False, # pexpect.spawn("erg", ['--rcfile', bashrc], echo=False,
+            child = pexpect.spawn(command="erg", args=["--quiet-startup"], echo=False, # pexpect.spawn("erg", ['--rcfile', bashrc], echo=False,
                                   encoding='utf-8', codec_errors='replace')
 
             # Using IREPLWrapper to get incremental output
-            self.bashwrapper = IREPLWrapper(child, u'[PEXPECT_PROMPT>', prompt_change=None,
+            self.bashwrapper = IREPLWrapper(child, u'>>> ', prompt_change=None,
                                             # extra_init_cmd="export PAGER=cat",
                                             line_output_callback=self.process_output)
         finally:
