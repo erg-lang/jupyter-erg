@@ -98,7 +98,7 @@ class ErgKernel(Kernel):
             # source code there for comments and context for
             # understanding the code here.
             # bashrc = os.path.join(os.path.dirname(pexpect.__file__), 'bashrc.sh')
-            child = pexpect.spawn(command="erg", args=["--quiet-startup"], echo=False, # pexpect.spawn("erg", ['--rcfile', bashrc], echo=False,
+            child = pexpect.spawn(command="erg", args=["--quiet-startup"], echo=False,
                                   encoding='utf-8', codec_errors='replace')
 
             # Using IREPLWrapper to get incremental output
