@@ -27,11 +27,15 @@ class IREPLWrapper(replwrap.REPLWrapper):
       of incremental output. It takes one string parameter.
     """
     def __init__(self, cmd_or_spawn, orig_prompt, prompt_change,
+                 new_prompt,
+                 continuation_prompt,
                  extra_init_cmd=None, line_output_callback=None):
         self.line_output_callback = line_output_callback
         replwrap.REPLWrapper.__init__(self, cmd_or_spawn,
                                       orig_prompt,
                                       prompt_change,
+                                      new_prompt.
+                                      continuation_prompt,
                                       extra_init_cmd=extra_init_cmd)
 
     def _expect_prompt(self, timeout=-1):
@@ -99,6 +103,8 @@ class ErgKernel(Kernel):
 
             # Using IREPLWrapper to get incremental output
             self.bashwrapper = IREPLWrapper(child, u'>>> ', prompt_change=None,
+                                            new_prompt=">>>",
+                                            continuation_prompt="...",
                                             # extra_init_cmd="export PAGER=cat",
                                             line_output_callback=self.process_output)
         finally:
