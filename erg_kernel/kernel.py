@@ -34,7 +34,7 @@ class IREPLWrapper(replwrap.REPLWrapper):
         replwrap.REPLWrapper.__init__(self, cmd_or_spawn,
                                       orig_prompt,
                                       prompt_change,
-                                      new_prompt.
+                                      new_prompt,
                                       continuation_prompt,
                                       extra_init_cmd=extra_init_cmd)
 
@@ -103,8 +103,8 @@ class ErgKernel(Kernel):
 
             # Using IREPLWrapper to get incremental output
             self.bashwrapper = IREPLWrapper(child, u'>>> ', prompt_change=None,
-                                            new_prompt=">>>",
-                                            continuation_prompt="...",
+                                            new_prompt=u'>>> ',
+                                            continuation_prompt=u'... ',
                                             # extra_init_cmd="export PAGER=cat",
                                             line_output_callback=self.process_output)
         finally:
