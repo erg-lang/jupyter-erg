@@ -29,7 +29,12 @@ class IREPLWrapper(replwrap.REPLWrapper):
     def __init__(self, cmd_or_spawn, orig_prompt, prompt_change, new_prompt, continuation_prompt,
                  extra_init_cmd=None, line_output_callback=None):
         self.line_output_callback = line_output_callback
-        replwrap.REPLWrapper.__init__(self, cmd_or_spawn, orig_prompt, prompt_change, new_prompt, continuation_prompt, extra_init_cmd=extra_init_cmd)
+        replwrap.REPLWrapper.__init__(self, cmd_or_spawn,
+                                      orig_prompt,
+                                      prompt_change,
+                                      new_prompt,
+                                      continuation_prompt,
+                                      extra_init_cmd)
 
     def _expect_prompt(self, timeout=-1):
         if timeout == None:
@@ -91,11 +96,11 @@ class ErgKernel(Kernel):
             # source code there for comments and context for
             # understanding the code here.
             # bashrc = os.path.join(os.path.dirname(pexpect.__file__), 'bashrc.sh')
-            child = pexpect.spawn(command="erg", args=["--quiet-startup"], echo=False, # pexpect.spawn("erg", ['--rcfile', bashrc], echo=False,
+            child = pexpect.spawn(command="erg", args=["--quiet-startup", "--ps1", "[PEXPECT_PROMPT>", "--ps2", "[PEXPECT_PROMPT+"], echo=False, # pexpect.spawn("erg", ['--rcfile', bashrc], echo=False,
                                   encoding='utf-8', codec_errors='replace')
 
             # Using IREPLWrapper to get incremental output
-            self.bashwrapper = IREPLWrapper(child, orig_prompt=u'>>>', prompt_change=None, new_prompt=u'>>>', continuation_prompt=u'...',
+            self.bashwrapper = IREPLWrapper(child, u'[PEXPECT_PROMPT>',
                                             # extra_init_cmd="export PAGER=cat",
                                             line_output_callback=self.process_output)
         finally:
